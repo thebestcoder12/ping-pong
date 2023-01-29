@@ -15,7 +15,7 @@ var pcscore = 0;
 //ball x and y and speedx speed y and radius
 var ball = {
   x: 350 / 2,
-  y: 480 / 2,
+  y: 480 / 2, 
   r: 20,
   dx: 3,
   dy: 3
@@ -42,6 +42,7 @@ function gotPoses(results) {
   if (results.length > 0) {
     rightWristX = results[0].pose.rightWrist.x;
     rightWristY = results[0].pose.rightWrist.y;
+    scoreRightWrist=results[0].pose.keypoints[10].score
   }
 }
 
@@ -60,7 +61,9 @@ function draw() {
     fill("black");
     stroke("black");
     rect(0, 0, 20, 700);
-
+if(scoreRightWrist>0.2){fill("red")
+stroke("red");
+circle(rightWristX,rightWristY,30)}
     //funtion paddleInCanvas call 
     paddleInCanvas();
 
@@ -68,7 +71,7 @@ function draw() {
     fill(250, 0, 0);
     stroke(0, 0, 250);
     strokeWeight(0.5);
-    paddle1Y = mouseY;
+    paddle1Y = rightWristY;
     rect(paddle1X, paddle1Y, paddle1, paddle1Height, 100);
 
 
@@ -158,7 +161,7 @@ function move() {
     stroke("white");
     textSize(25)
     text("Game Over!☹☹", width / 2, height / 2);
-    text("Reload The Page!", width / 2, height / 2 + 30)
+    text("Press restart button to play again (:!", width / 2, height / 2 + 30)
     noLoop();
     pcscore = 0;
   }
@@ -187,4 +190,9 @@ function paddleInCanvas() {
   if (mouseY < 0) {
     mouseY = 0;
   }
+}
+function restart () {
+  loop();
+  pcscore=0;
+  playerscore=0;
 }
