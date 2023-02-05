@@ -61,7 +61,8 @@ function draw() {
     fill("black");
     stroke("black");
     rect(0, 0, 20, 700);
-if(scoreRightWrist>0.2){fill("red")
+if(scoreRightWrist){
+  fill("red")
 stroke("red");
 circle(rightWristX,rightWristY,30)}
     //funtion paddleInCanvas call 
@@ -146,11 +147,13 @@ function move() {
     if (ball.y >= paddle1Y && ball.y <= paddle1Y + paddle1Height) {
       ball.dx = -ball.dx + 0.5;
       playerscore++;
+      ball_touch_paddel.play()
     }
     else {
       pcscore++;
       reset();
       navigator.vibrate(100);
+      missed.play()
     }
   }
   if (pcscore == 4) {
